@@ -1,6 +1,60 @@
 // Smooth scrolling for navigation
 document.addEventListener('DOMContentLoaded', function() {
     
+    // Navigation Drawer functionality
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const navDrawer = document.getElementById('navDrawer');
+    const navOverlay = document.getElementById('navOverlay');
+    const closeDrawer = document.getElementById('closeDrawer');
+    const navItems = document.querySelectorAll('.nav-item');
+
+    // Open drawer
+    hamburgerMenu.addEventListener('click', function() {
+        navDrawer.classList.add('active');
+        navOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    // Close drawer
+    function closeNav() {
+        navDrawer.classList.remove('active');
+        navOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    closeDrawer.addEventListener('click', closeNav);
+    navOverlay.addEventListener('click', closeNav);
+
+    // Close drawer when clicking nav items
+    navItems.forEach(item => {
+        item.addEventListener('click', closeNav);
+    });
+
+    // Bottom Navigation Active State
+    const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+    const sections = document.querySelectorAll('section[id], header[id]');
+
+    function updateActiveNav() {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollY >= (sectionTop - 200)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        bottomNavItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('href') === `#${current}`) {
+                item.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', updateActiveNav);
+    updateActiveNav();
+
     // Add smooth scroll behavior
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
