@@ -1,6 +1,34 @@
 // Smooth scrolling for navigation
 document.addEventListener('DOMContentLoaded', function() {
     
+    // Government Approvals Modal
+    const govtBtn = document.getElementById('govtApprovalsBtn');
+    const govtModal = document.getElementById('govtModal');
+    const govtModalOverlay = document.getElementById('govtModalOverlay');
+    const govtModalClose = document.getElementById('govtModalClose');
+
+    if (govtBtn && govtModal) {
+        govtBtn.addEventListener('click', function() {
+            govtModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        function closeGovtModal() {
+            govtModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        govtModalClose.addEventListener('click', closeGovtModal);
+        govtModalOverlay.addEventListener('click', closeGovtModal);
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && govtModal.classList.contains('active')) {
+                closeGovtModal();
+            }
+        });
+    }
+    
     // Navigation Drawer functionality
     const hamburgerMenu = document.getElementById('hamburgerMenu');
     const navDrawer = document.getElementById('navDrawer');
