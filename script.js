@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (this.textContent.includes('Check Eligible')) {
                 alert('Feature coming soon! Please contact support for eligibility details.');
             } else if (this.textContent.includes('Contact Support')) {
-                alert('Contact Support:\nEmail: support@besqaa.com\nPhone: +91-XXXXXXXXXX');
+                alert('Contact Support:\nEmail: forsupportpsu@besqaa.in\nPhone: +91-7368919823');
             }
         });
     });
