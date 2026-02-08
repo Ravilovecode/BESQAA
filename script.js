@@ -301,6 +301,47 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize visitor counter
     initVisitorCounter();
 
+    // ============================================
+    // WORKING MODEL ROADMAP ACCORDION
+    // ============================================
+    const roadmapSteps = document.querySelectorAll('.roadmap-step');
+    
+    if (roadmapSteps.length > 0) {
+        roadmapSteps.forEach(step => {
+            const header = step.querySelector('.step-header');
+            
+            if (header) {
+                header.addEventListener('click', function() {
+                    // Check if this step is already active
+                    const isActive = step.classList.contains('active');
+                    
+                    // Close all other steps
+                    roadmapSteps.forEach(otherStep => {
+                        otherStep.classList.remove('active');
+                    });
+                    
+                    // Toggle current step
+                    if (!isActive) {
+                        step.classList.add('active');
+                        
+                        // Smooth scroll to the step
+                        setTimeout(() => {
+                            step.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+                        }, 100);
+                    }
+                });
+            }
+        });
+        
+        // Open first step by default
+        if (roadmapSteps[0]) {
+            roadmapSteps[0].classList.add('active');
+        }
+    }
+
     // Log console message for developer
     console.log('%c🪑 BESQAA Furniture Website Loaded Successfully! 🪑', 
         'color: #1a4d7c; font-size: 16px; font-weight: bold;');

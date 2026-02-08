@@ -268,7 +268,7 @@ body {
     background: white;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     z-index: 999;
-    padding: 8px 0;
+    padding: 6px 0;
 }
 
 .bottom-nav-item {
@@ -279,13 +279,21 @@ body {
     flex: 1;
     color: #666;
     text-decoration: none;
-    padding: 8px 0;
+    padding: 6px 0;
     transition: all 0.3s ease;
-    font-size: 12px;
+    font-size: 10px;
+    min-width: 0;
 }
 
 .bottom-nav-item svg {
-    margin-bottom: 4px;
+    margin-bottom: 3px;
+}
+
+.bottom-nav-item span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .bottom-nav-item:hover,
@@ -300,6 +308,17 @@ body {
     
     body {
         padding-bottom: 60px;
+    }
+}
+
+@media (max-width: 400px) {
+    .bottom-nav-item {
+        font-size: 9px;
+    }
+    
+    .bottom-nav-item svg {
+        width: 20px;
+        height: 20px;
     }
 }
 
@@ -447,6 +466,10 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-primary {
@@ -2523,5 +2546,984 @@ body {
 
     .stat-label {
         font-size: 0.8rem;
+    }
+}
+
+/* ============================================
+   WORKING MODEL PAGE STYLES
+   ============================================ */
+
+/* Working Model Header */
+.working-model-header {
+    background: linear-gradient(135deg, #1a4d7c 0%, #0d3a5c 50%, #1a4d7c 100%);
+    color: white;
+    padding: 100px 20px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.working-model-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.08)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.06)"/></svg>');
+    background-size: 100px 100px;
+    opacity: 0.5;
+}
+
+.working-model-hero {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.model-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.working-model-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.trust-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.trust-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+.trust-icon {
+    font-size: 1.5rem;
+}
+
+/* Roadmap Section */
+.roadmap-section {
+    background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+    padding: 80px 20px;
+}
+
+.roadmap-intro {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.roadmap-intro h2 {
+    font-size: 2.5rem;
+    color: #1a4d7c;
+    margin-bottom: 15px;
+}
+
+.roadmap-intro p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* Visual Road Diagram */
+.road-diagram {
+    margin-bottom: 60px;
+    padding: 40px 20px;
+    background: linear-gradient(180deg, #e8f4e8 0%, #d4e8d4 30%, #c8ddc8 60%, #b8d4b8 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.road-diagram::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(180deg, #87CEEB 0%, #e8f4e8 100%);
+    opacity: 0.6;
+}
+
+.road-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    height: 900px;
+}
+
+.road-svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.road-path {
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.road-line {
+    animation: dashMove 2s linear infinite;
+}
+
+@keyframes dashMove {
+    from {
+        stroke-dashoffset: 0;
+    }
+    to {
+        stroke-dashoffset: -35;
+    }
+}
+
+/* Road Step Cards */
+.road-step {
+    position: absolute;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 280px;
+    animation: fadeInStep 0.5s ease forwards;
+    opacity: 0;
+}
+
+.road-step-number {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.4);
+    border: 3px solid #fff;
+}
+
+.road-step-content {
+    background: white;
+    padding: 15px 18px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    border-left: 4px solid #8B4513;
+    position: relative;
+}
+
+.road-step-content::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 15px;
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid white;
+}
+
+.road-step-content h4 {
+    font-size: 1rem;
+    color: #1a4d7c;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.road-step-content p {
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Position each step along the road */
+.road-step-1 {
+    top: 0;
+    left: 0;
+    animation-delay: 0.1s;
+}
+
+.road-step-2 {
+    top: 80px;
+    right: 50px;
+    left: auto;
+    flex-direction: row-reverse;
+    animation-delay: 0.2s;
+}
+
+.road-step-2 .road-step-content::before {
+    left: auto;
+    right: -12px;
+    border-right: none;
+    border-left: 8px solid white;
+}
+
+.road-step-3 {
+    top: 220px;
+    left: 0;
+    animation-delay: 0.3s;
+}
+
+.road-step-4 {
+    top: 320px;
+    right: 0;
+    left: auto;
+    flex-direction: row-reverse;
+    animation-delay: 0.4s;
+}
+
+.road-step-4 .road-step-content::before {
+    left: auto;
+    right: -12px;
+    border-right: none;
+    border-left: 8px solid white;
+}
+
+.road-step-5 {
+    top: 450px;
+    left: 0;
+    animation-delay: 0.5s;
+}
+
+.road-step-6 {
+    top: 550px;
+    right: 0;
+    left: auto;
+    flex-direction: row-reverse;
+    animation-delay: 0.6s;
+}
+
+.road-step-6 .road-step-content::before {
+    left: auto;
+    right: -12px;
+    border-right: none;
+    border-left: 8px solid white;
+}
+
+.road-step-7 {
+    top: 680px;
+    left: 50px;
+    animation-delay: 0.7s;
+}
+
+.road-step-8 {
+    top: 810px;
+    right: 50px;
+    left: auto;
+    flex-direction: row-reverse;
+    animation-delay: 0.8s;
+}
+
+.road-step-8 .road-step-content::before {
+    left: auto;
+    right: -12px;
+    border-right: none;
+    border-left: 8px solid white;
+}
+
+@keyframes fadeInStep {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Decorative trees */
+.road-tree {
+    position: absolute;
+    font-size: 2.5rem;
+    opacity: 0.7;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.road-tree-1 {
+    top: 150px;
+    left: 45%;
+}
+
+.road-tree-2 {
+    top: 380px;
+    left: 55%;
+}
+
+.road-tree-3 {
+    top: 600px;
+    right: 35%;
+}
+
+.road-tree-4 {
+    top: 750px;
+    left: 50%;
+}
+
+.road-diagram-note {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.road-diagram-note p {
+    font-size: 1.1rem;
+    color: #666;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f0f4f8;
+    padding: 12px 25px;
+    border-radius: 30px;
+}
+
+/* Responsive Road Diagram */
+@media (max-width: 992px) {
+    .road-container {
+        height: 750px;
+    }
+    
+    .road-step {
+        max-width: 220px;
+    }
+    
+    .road-step-content h4 {
+        font-size: 0.9rem;
+    }
+    
+    .road-step-content p {
+        font-size: 0.8rem;
+    }
+    
+    .road-step-2 {
+        top: 60px;
+    }
+    
+    .road-step-3 {
+        top: 180px;
+    }
+    
+    .road-step-4 {
+        top: 260px;
+    }
+    
+    .road-step-5 {
+        top: 370px;
+    }
+    
+    .road-step-6 {
+        top: 450px;
+    }
+    
+    .road-step-7 {
+        top: 560px;
+    }
+    
+    .road-step-8 {
+        top: 670px;
+    }
+}
+
+@media (max-width: 768px) {
+    .road-diagram {
+        padding: 30px 15px;
+        background: linear-gradient(180deg, #e8f4e8 0%, #d4e8d4 100%);
+    }
+    
+    .road-diagram::before {
+        height: 60px;
+    }
+    
+    .road-container {
+        height: auto;
+        position: relative;
+    }
+    
+    .road-svg {
+        display: none;
+    }
+    
+    .road-tree {
+        display: none;
+    }
+    
+    /* Mobile vertical road layout */
+    .road-step {
+        position: relative;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        max-width: 100%;
+        margin-bottom: 20px;
+        flex-direction: row !important;
+        padding-left: 20px;
+        border-left: 4px solid #4a4a4a;
+        animation: none;
+        opacity: 1;
+    }
+    
+    .road-step:last-child {
+        margin-bottom: 0;
+    }
+    
+    .road-step::before {
+        content: '';
+        position: absolute;
+        left: -8px;
+        top: 18px;
+        width: 12px;
+        height: 12px;
+        background: #4a4a4a;
+        border-radius: 50%;
+    }
+    
+    .road-step-number {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        font-size: 1.1rem;
+    }
+    
+    .road-step-content {
+        padding: 12px 15px;
+        flex: 1;
+    }
+    
+    .road-step-content::before {
+        display: none;
+    }
+    
+    .road-step-content h4 {
+        font-size: 0.95rem;
+    }
+    
+    .road-step-content p {
+        font-size: 0.8rem;
+    }
+    
+    .road-diagram-note {
+        margin-bottom: 30px;
+    }
+    
+    .road-diagram-note p {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+}
+
+/* Roadmap Timeline */
+.roadmap-timeline {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.roadmap-step {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.step-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #1a4d7c 0%, #2c5f8d 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(26, 77, 124, 0.3);
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.roadmap-step:hover .step-number {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(26, 77, 124, 0.4);
+}
+
+.roadmap-step.active .step-number {
+    background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+}
+
+.step-line {
+    width: 3px;
+    flex-grow: 1;
+    background: linear-gradient(180deg, #1a4d7c 0%, #ddd 100%);
+    min-height: 30px;
+}
+
+.step-line.last {
+    background: transparent;
+}
+
+.step-content {
+    flex-grow: 1;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid #e8e8e8;
+}
+
+.step-content:hover {
+    box-shadow: 0 8px 35px rgba(0, 0, 0, 0.12);
+    transform: translateY(-3px);
+}
+
+.roadmap-step.active .step-content {
+    border-color: #ff9800;
+    box-shadow: 0 8px 35px rgba(255, 152, 0, 0.15);
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.step-header:hover {
+    background: #f8f9fa;
+}
+
+.step-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.step-title {
+    flex-grow: 1;
+}
+
+.step-title h3 {
+    font-size: 1.2rem;
+    color: #1a4d7c;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.step-subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0;
+}
+
+.step-toggle {
+    width: 40px;
+    height: 40px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.step-toggle svg {
+    transition: transform 0.3s ease;
+    color: #666;
+}
+
+.roadmap-step.active .step-toggle {
+    background: #ff9800;
+}
+
+.roadmap-step.active .step-toggle svg {
+    transform: rotate(180deg);
+    color: white;
+}
+
+/* Step Details (Accordion Content) */
+.step-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    background: #f8f9fa;
+    border-top: 1px solid #e8e8e8;
+}
+
+.roadmap-step.active .step-details {
+    max-height: 600px;
+    padding: 25px;
+}
+
+.detail-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-left: 4px solid #1a4d7c;
+}
+
+.detail-card h4 {
+    color: #1a4d7c;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.detail-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.detail-card li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.6;
+}
+
+.detail-card li:last-child {
+    border-bottom: none;
+}
+
+.detail-card li strong {
+    color: #1a4d7c;
+}
+
+.step-benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    padding: 15px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #28a745;
+}
+
+.step-benefit.final {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    border-left-color: #ff9800;
+}
+
+.benefit-icon {
+    font-size: 1.2rem;
+    color: #28a745;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.step-benefit.final .benefit-icon {
+    color: #ff9800;
+}
+
+.step-benefit span:last-child {
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Model Summary Section */
+.model-summary {
+    margin-top: 80px;
+    text-align: center;
+}
+
+.model-summary h3 {
+    font-size: 2rem;
+    color: #1a4d7c;
+    margin-bottom: 40px;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.summary-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #e8e8e8;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+.summary-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.summary-card h4 {
+    font-size: 1.2rem;
+    color: #1a4d7c;
+    margin-bottom: 10px;
+}
+
+.summary-card p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Model CTA Section */
+.model-cta {
+    margin-top: 60px;
+    background: linear-gradient(135deg, #1a4d7c 0%, #2c5f8d 100%);
+    border-radius: 20px;
+    padding: 50px 40px;
+    text-align: center;
+    color: white;
+}
+
+.model-cta h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.model-cta p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 30px;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-secondary-dark {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-secondary-dark:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+/* Working Model Button in Hero */
+.btn-model {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.btn-model:hover {
+    background: linear-gradient(135deg, #5558e3 0%, #7c4fe0 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Responsive Design for Working Model */
+@media (max-width: 992px) {
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .working-model-header {
+        padding: 80px 15px 60px;
+    }
+
+    .working-model-hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .trust-indicators {
+        gap: 15px;
+    }
+
+    .trust-item {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+
+    .roadmap-intro h2 {
+        font-size: 1.8rem;
+    }
+
+    .roadmap-step {
+        gap: 15px;
+    }
+
+    .step-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+
+    .step-header {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+    }
+
+    .step-icon {
+        font-size: 1.5rem;
+    }
+
+    .step-title h3 {
+        font-size: 1rem;
+    }
+
+    .step-subtitle {
+        font-size: 0.85rem;
+    }
+
+    .step-toggle {
+        width: 35px;
+        height: 35px;
+    }
+
+    .roadmap-step.active .step-details {
+        padding: 20px;
+    }
+
+    .detail-card {
+        padding: 15px;
+    }
+
+    .model-summary h3 {
+        font-size: 1.5rem;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .summary-card {
+        padding: 25px 20px;
+    }
+
+    .model-cta {
+        padding: 40px 25px;
+        border-radius: 15px;
+    }
+
+    .model-cta h3 {
+        font-size: 1.5rem;
+    }
+
+    .model-cta p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .working-model-hero h1 {
+        font-size: 1.7rem;
+    }
+
+    .model-badge {
+        font-size: 0.85rem;
+        padding: 8px 15px;
+    }
+
+    .trust-indicators {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .trust-item {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+    }
+
+    .step-header {
+        gap: 10px;
+    }
+
+    .step-title {
+        flex-basis: 100%;
+        order: 3;
+        margin-top: 10px;
+    }
+
+    .step-toggle {
+        margin-left: auto;
+    }
+
+    .detail-card li {
+        font-size: 0.9rem;
+    }
+
+    .step-benefit span:last-child {
+        font-size: 0.9rem;
     }
 }
