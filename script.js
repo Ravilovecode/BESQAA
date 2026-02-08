@@ -171,6 +171,79 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Global Visitor Counter - Track All Visitors Worldwide
+    async function initVisitorCounter() {
+        const VISITOR_KEY = 'besqaa_visited';
+        const counterElement = document.getElementById('visitorCount');
+        
+        if (!counterElement) return;
+        
+        // Check if user has visited before
+        const hasVisited = localStorage.getItem(VISITOR_KEY);
+        
+        try {
+            // Use CountAPI.xyz - Free global counter service
+            const namespace = 'besqaa-furniture';
+            const key = 'website-visitors';
+            
+            let response;
+            
+            if (!hasVisited) {
+                // New visitor - increment the global count
+                response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
+                localStorage.setItem(VISITOR_KEY, 'true');
+            } else {
+                // Returning visitor - just get the current count
+                response = await fetch(`https://api.countapi.xyz/get/${namespace}/${key}`);
+            }
+            
+            const data = await response.json();
+            const visitorCount = data.value || 0;
+            
+            // Animate counter
+            animateCounter(counterElement, visitorCount);
+            
+        } catch (error) {
+            console.error('Failed to fetch visitor count:', error);
+            // Fallback to local counter if API fails
+            fallbackLocalCounter(counterElement, hasVisited);
+        }
+    }
+    
+    // Fallback to localStorage if API is unavailable
+    function fallbackLocalCounter(element, hasVisited) {
+        const COUNTER_KEY = 'besqaa_visitor_count_local';
+        let visitorCount = parseInt(localStorage.getItem(COUNTER_KEY)) || 0;
+        
+        if (!hasVisited) {
+            visitorCount++;
+            localStorage.setItem(COUNTER_KEY, visitorCount.toString());
+        }
+        
+        element.textContent = visitorCount.toLocaleString();
+    }
+    
+    // Animate counter with smooth counting effect
+    function animateCounter(element, target) {
+        let current = 0;
+        const increment = Math.max(1, target / 50); // 50 steps
+        const duration = 2000; // 2 seconds
+        const stepTime = duration / 50;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                element.textContent = target.toLocaleString();
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(current).toLocaleString();
+            }
+        }, stepTime);
+    }
+    
+    // Initialize visitor counter
+    initVisitorCounter();
+
     // Log console message for developer
     console.log('%c🪑 BESQAA Furniture Website Loaded Successfully! 🪑', 
         'color: #1a4d7c; font-size: 16px; font-weight: bold;');
