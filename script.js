@@ -171,60 +171,110 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Global Visitor Counter - Track All Visitors Worldwide
+    // Global Visitor Counter - Robust Unique Visitor Tracking
     async function initVisitorCounter() {
-        const VISITOR_KEY = 'besqaa_visited';
         const counterElement = document.getElementById('visitorCount');
-        
         if (!counterElement) return;
         
-        // Check if user has visited before
-        const hasVisited = localStorage.getItem(VISITOR_KEY);
+        // Generate a unique device fingerprint
+        const deviceFingerprint = generateDeviceFingerprint();
+        const VISITOR_KEY = 'besqaa_visitor_' + deviceFingerprint;
+        const VISITOR_ID_KEY = 'besqaa_device_id';
+        const GLOBAL_COUNT_KEY = 'besqaa_global_count';
+        
+        // Check if this specific device has visited before
+        const hasVisited = localStorage.getItem(VISITOR_KEY) === 'true';
+        const storedDeviceId = localStorage.getItem(VISITOR_ID_KEY);
+        
+        // Double check with device ID
+        const isReturningVisitor = hasVisited && storedDeviceId === deviceFingerprint;
         
         try {
-            // Use CountAPI.xyz - Free global counter service
-            const namespace = 'besqaa-furniture';
-            const key = 'website-visitors';
+            // Use CountAPI alternative - api.counterapi.dev (free and reliable)
+            const namespace = 'besqaa-furniture-psu';
+            const key = 'unique-visitors-v2';
             
-            let response;
+            let visitorCount;
             
-            if (!hasVisited) {
+            if (!isReturningVisitor) {
                 // New visitor - increment the global count
-                response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
+                const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`);
+                const data = await response.json();
+                visitorCount = data.count || 1;
+                
+                // Mark this device as visited
                 localStorage.setItem(VISITOR_KEY, 'true');
+                localStorage.setItem(VISITOR_ID_KEY, deviceFingerprint);
+                localStorage.setItem(GLOBAL_COUNT_KEY, visitorCount.toString());
             } else {
-                // Returning visitor - just get the current count
-                response = await fetch(`https://api.countapi.xyz/get/${namespace}/${key}`);
+                // Returning visitor - get count without incrementing
+                const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}`);
+                const data = await response.json();
+                visitorCount = data.count || parseInt(localStorage.getItem(GLOBAL_COUNT_KEY)) || 1;
             }
-            
-            const data = await response.json();
-            const visitorCount = data.value || 0;
             
             // Animate counter
             animateCounter(counterElement, visitorCount);
             
         } catch (error) {
-            console.error('Failed to fetch visitor count:', error);
-            // Fallback to local counter if API fails
-            fallbackLocalCounter(counterElement, hasVisited);
+            console.error('Counter API failed:', error);
+            // Fallback to robust local counter
+            fallbackLocalCounter(counterElement, isReturningVisitor, deviceFingerprint);
         }
     }
     
-    // Fallback to localStorage if API is unavailable
-    function fallbackLocalCounter(element, hasVisited) {
-        const COUNTER_KEY = 'besqaa_visitor_count_local';
-        let visitorCount = parseInt(localStorage.getItem(COUNTER_KEY)) || 0;
+    // Generate a unique device fingerprint based on browser characteristics
+    function generateDeviceFingerprint() {
+        const components = [
+            navigator.userAgent,
+            navigator.language,
+            screen.width + 'x' + screen.height,
+            screen.colorDepth,
+            new Date().getTimezoneOffset(),
+            navigator.hardwareConcurrency || 'unknown',
+            navigator.platform || 'unknown'
+        ];
         
-        if (!hasVisited) {
-            visitorCount++;
-            localStorage.setItem(COUNTER_KEY, visitorCount.toString());
+        // Create a simple hash from the components
+        const fingerprint = components.join('|');
+        let hash = 0;
+        for (let i = 0; i < fingerprint.length; i++) {
+            const char = fingerprint.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        return Math.abs(hash).toString(36);
+    }
+    
+    // Fallback to localStorage if API is unavailable
+    function fallbackLocalCounter(element, isReturningVisitor, deviceFingerprint) {
+        const COUNTER_KEY = 'besqaa_visitor_count_local';
+        const DEVICES_KEY = 'besqaa_known_devices';
+        
+        // Get known devices list
+        let knownDevices = [];
+        try {
+            knownDevices = JSON.parse(localStorage.getItem(DEVICES_KEY)) || [];
+        } catch (e) {
+            knownDevices = [];
         }
         
-        element.textContent = visitorCount.toLocaleString();
+        let visitorCount = parseInt(localStorage.getItem(COUNTER_KEY)) || 0;
+        
+        // Check if this device is already known
+        if (!knownDevices.includes(deviceFingerprint) && !isReturningVisitor) {
+            visitorCount++;
+            knownDevices.push(deviceFingerprint);
+            localStorage.setItem(COUNTER_KEY, visitorCount.toString());
+            localStorage.setItem(DEVICES_KEY, JSON.stringify(knownDevices));
+        }
+        
+        animateCounter(element, Math.max(1, visitorCount));
     }
     
     // Animate counter with smooth counting effect
     function animateCounter(element, target) {
+        if (target <= 0) target = 1;
         let current = 0;
         const increment = Math.max(1, target / 50); // 50 steps
         const duration = 2000; // 2 seconds

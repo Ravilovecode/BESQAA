@@ -1,0 +1,271 @@
+BESQAA Furniture - Product Categories
+======================================
+Total Products: 115 | Minimum Order Value: Rs 2,000
+
+================================================================================
+ELECTRONICS APPLIANCES
+================================================================================
+
+TELEVISION & ENTERTAINMENT (2 items)
+------------------------------------
+1. Television (LED/Smart TV)
+2. Mobile Phone / Smartphone
+
+KITCHEN ELECTRONICS (6 items)
+-----------------------------
+1. Microwave Oven
+2. Mixer Grinder
+3. Electric Kettle
+4. Food Processor
+5. Induction Cooktop
+6. Geyser / Water Heater
+
+COOLING & HEATING (6 items)
+---------------------------
+1. Air Conditioner (Split AC)
+2. Air Conditioner (Window AC)
+3. Air Cooler
+4. Ceiling Fan
+5. Table Fan
+6. Room Heater
+
+HOME ELECTRONICS (4 items)
+--------------------------
+1. Washing Machine (Front Load)
+2. Washing Machine (Top Load)
+3. Refrigerator (Single Door)
+4. Refrigerator (Double Door)
+
+SMALL APPLIANCES (2 items)
+--------------------------
+1. Iron (Electric)
+2. Vacuum Cleaner
+
+================================================================================
+LARGE FURNITURE
+================================================================================
+
+BEDROOM FURNITURE (8 items)
+---------------------------
+1. Bed
+2. Wardrobe
+3. Almirah
+4. Steel Almirah
+5. Dressing Table
+6. Diwan
+7. Chest of Drawers
+8. Metal Cot
+
+LIVING ROOM FURNITURE (8 items)
+-------------------------------
+1. Sofa Set
+2. Leather Sofa
+3. Recliner
+4. Easy Chair
+5. Bean Bag Chair
+6. Center Table
+7. TV Trolly
+8. Teapoy
+
+DINING ROOM FURNITURE (4 items)
+-------------------------------
+1. Dinning Table
+2. Dinning Chairs
+3. Side Unit
+4. Bench
+
+OFFICE & STUDY FURNITURE (8 items)
+----------------------------------
+1. Computer Table
+2. Study Table
+3. Laptop Table
+4. Book Shelf
+5. Chairs
+6. Metal Chairs
+7. Cabinet (Wooden)
+8. Cabinet (Plastic)
+
+STORAGE SOLUTIONS (8 items)
+---------------------------
+1. Cupboard (Kitchen)
+2. Steel Cabinet
+3. Metal Cupboard
+4. Shoe Rack
+5. Storewell
+6. Safe (Locker)
+7. Acrylic Cabinet
+8. Trunk/Suitcase
+
+================================================================================
+FITNESS EQUIPMENT
+================================================================================
+
+GYM & EXERCISE EQUIPMENT (8 items)
+----------------------------------
+1. Multi Station Gym
+2. Rowing Machine
+3. Cross Trainer
+4. Elliptical Machine
+5. Exercise Cycle
+6. Multi Exercise Chair
+7. Step Machine
+8. Gym Ball
+
+================================================================================
+HOME APPLIANCES
+================================================================================
+
+WATER & AIR (4 items)
+---------------------
+1. Water Dispenser
+2. Water Filter
+3. Chimney
+4. Sanitizer Dispensing Machine
+
+LAUNDRY & CLEANING (3 items)
+----------------------------
+1. Cloth Dryer Stand
+2. Floor Cleaning Mop (Manual)
+3. Ironing Board
+
+SOLAR & POWER (3 items)
+-----------------------
+1. Solar Lanterns or Lamp
+2. Solar Panel Equipment
+3. Portable Genset
+
+================================================================================
+KITCHEN APPLIANCES
+================================================================================
+
+COOKING APPLIANCES (7 items)
+----------------------------
+1. Gas Stove
+2. Gas Burner
+3. Cooktop
+4. Cooking Range
+5. Hot Plate
+6. Tandoor
+7. Griller
+
+FOOD PROCESSING (5 items)
+-------------------------
+1. Cooker
+2. Atta Chakki
+3. Wet Grinder
+4. Hand Juicer
+5. Frying Pan
+
+KITCHEN STORAGE & ACCESSORIES (2 items)
+---------------------------------------
+1. Kitchen Trolley
+2. Weighing Scale
+
+================================================================================
+DINNERWARE & UTENSILS
+================================================================================
+
+DINNER SETS (3 items)
+---------------------
+1. Dinner Set of Aluminium
+2. Dinner Set of Copper
+3. Dinner Set of Iron and Steel
+
+PLATE SETS (3 items)
+--------------------
+1. Plate Set of Aluminium
+2. Plate Set of Copper
+3. Plate Set of Iron and Steel
+
+TEA SETS (3 items)
+------------------
+1. Tea Set of Aluminium
+2. Tea Set of Copper
+3. Tea Set of Iron and Steel
+
+================================================================================
+SOFT FURNISHINGS (Minimum Rs 2,000)
+================================================================================
+
+BEDDING & COMFORT (4 items)
+---------------------------
+1. Mattress with Spring
+2. Mattress without Spring
+3. Pillow
+4. Blanket
+
+HOME TEXTILES (2 items)
+-----------------------
+1. Carpets
+2. Curtains
+
+================================================================================
+OTHER ITEMS
+================================================================================
+
+HOME DECOR & ESSENTIALS (5 items)
+---------------------------------
+1. Wall Clock
+2. Dressing/Wall Mounted Mirror
+3. Temple
+4. Craft/Showpiece Item
+5. Telescope
+
+OUTDOOR & GARDEN (3 items)
+--------------------------
+1. Grass Cutting Machine
+2. Bicycle
+3. Ladder
+
+UTILITY ITEMS (4 items)
+-----------------------
+1. Sewing Machine
+2. Trolley
+3. Suitcase
+4. Table
+
+================================================================================
+SUMMARY BY CATEGORY
+================================================================================
+
+Category                          | Items
+----------------------------------|-------
+Electronics Appliances            | 20
+  - Television & Entertainment    | 2
+  - Home Electronics              | 4
+  - Cooling & Heating             | 6
+  - Kitchen Electronics           | 6
+  - Small Appliances              | 2
+Large Furniture                   | 36
+  - Bedroom Furniture             | 8
+  - Living Room Furniture         | 8
+  - Dining Room Furniture         | 4
+  - Office & Study Furniture      | 8
+  - Storage Solutions             | 8
+Fitness Equipment                 | 8
+Home Appliances                   | 10
+  - Water & Air                   | 4
+  - Laundry & Cleaning            | 3
+  - Solar & Power                 | 3
+Kitchen Appliances                | 14
+  - Cooking Appliances            | 7
+  - Food Processing               | 5
+  - Kitchen Storage               | 2
+Dinnerware & Utensils             | 9
+  - Dinner Sets                   | 3
+  - Plate Sets                    | 3
+  - Tea Sets                      | 3
+Soft Furnishings                  | 6
+  - Bedding & Comfort             | 4
+  - Home Textiles                 | 2
+Other Items                       | 12
+  - Home Decor & Essentials       | 5
+  - Outdoor & Garden              | 3
+  - Utility Items                 | 4
+----------------------------------|-------
+TOTAL PRODUCTS                    | 115
+
+================================================================================
+Note: All products available with proper GST invoice for PSU claim purposes.
+GST: 20ODCPK1556C1ZY | Udyam: UDYAM-JH-04-0047160
+================================================================================

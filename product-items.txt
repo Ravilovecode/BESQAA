@@ -10,6 +10,29 @@ Furniture - Soft Furnishings (min Rs 2000)
 - Pillow
 - Blanket
 
+Electronics Appliances (min Rs 2000)
+------------------------------------
+- Television (LED/Smart TV)
+- Washing Machine (Front Load)
+- Washing Machine (Top Load)
+- Refrigerator (Single Door)
+- Refrigerator (Double Door)
+- Mobile Phone / Smartphone
+- Air Conditioner (Split AC)
+- Air Conditioner (Window AC)
+- Iron (Electric)
+- Microwave Oven
+- Mixer Grinder
+- Electric Kettle
+- Geyser / Water Heater
+- Air Cooler
+- Ceiling Fan
+- Table Fan
+- Vacuum Cleaner
+- Room Heater
+- Induction Cooktop
+- Food Processor
+
 Other Items (min Rs 2000)
 -------------------------
 - Acrylic cabinet
