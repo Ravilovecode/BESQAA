@@ -190,17 +190,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const isReturningVisitor = hasVisited && storedDeviceId === deviceFingerprint;
         
         try {
-            // Use CountAPI alternative - api.counterapi.dev (free and reliable)
-            const namespace = 'besqaa-furniture-psu';
-            const key = 'unique-visitors-v2';
+            // Use CountAPI.xyz - Free counter API with CORS support
+            const namespace = 'besqaa.in';
+            const key = 'unique-visitors';
             
             let visitorCount;
             
             if (!isReturningVisitor) {
                 // New visitor - increment the global count
-                const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`);
+                const response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
                 const data = await response.json();
-                visitorCount = data.count || 1;
+                visitorCount = data.value || 1;
                 
                 // Mark this device as visited
                 localStorage.setItem(VISITOR_KEY, 'true');
@@ -208,9 +208,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 localStorage.setItem(GLOBAL_COUNT_KEY, visitorCount.toString());
             } else {
                 // Returning visitor - get count without incrementing
-                const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}`);
+                const response = await fetch(`https://api.countapi.xyz/get/${namespace}/${key}`);
                 const data = await response.json();
-                visitorCount = data.count || parseInt(localStorage.getItem(GLOBAL_COUNT_KEY)) || 1;
+                visitorCount = data.value || parseInt(localStorage.getItem(GLOBAL_COUNT_KEY)) || 1;
             }
             
             // Animate counter
@@ -250,6 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function fallbackLocalCounter(element, isReturningVisitor, deviceFingerprint) {
         const COUNTER_KEY = 'besqaa_visitor_count_local';
         const DEVICES_KEY = 'besqaa_known_devices';
+        const GLOBAL_COUNT_KEY = 'besqaa_global_count';
         
         // Get known devices list
         let knownDevices = [];
@@ -259,7 +260,10 @@ document.addEventListener('DOMContentLoaded', function() {
             knownDevices = [];
         }
         
-        let visitorCount = parseInt(localStorage.getItem(COUNTER_KEY)) || 0;
+        // Start from last known global count or local count, whichever is higher
+        const lastGlobalCount = parseInt(localStorage.getItem(GLOBAL_COUNT_KEY)) || 0;
+        const localCount = parseInt(localStorage.getItem(COUNTER_KEY)) || 0;
+        let visitorCount = Math.max(lastGlobalCount, localCount);
         
         // Check if this device is already known
         if (!knownDevices.includes(deviceFingerprint) && !isReturningVisitor) {
