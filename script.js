@@ -190,34 +190,37 @@ document.addEventListener('DOMContentLoaded', function() {
         const isReturningVisitor = hasVisited && storedDeviceId === deviceFingerprint;
         
         try {
-            // Use CountAPI.xyz - Free counter API with CORS support
-            const namespace = 'besqaa.in';
-            const key = 'unique-visitors';
-            
+            // Use reliable counter with local persistence
             let visitorCount;
             
             if (!isReturningVisitor) {
-                // New visitor - increment the global count
-                const response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
-                const data = await response.json();
-                visitorCount = data.value || 1;
+                // New visitor - try to get global count from API
+                try {
+                    const response = await fetch('https://api.counterapi.dev/v1/besqaa-furniture-psu/unique-visitors-v2/up', {
+                        mode: 'cors',
+                        cache: 'no-cache'
+                    });
+                    const data = await response.json();
+                    visitorCount = data.count || parseInt(localStorage.getItem(GLOBAL_COUNT_KEY)) || 1;
+                    localStorage.setItem(GLOBAL_COUNT_KEY, visitorCount.toString());
+                } catch (apiError) {
+                    // API failed, use local counter with last known value
+                    visitorCount = parseInt(localStorage.getItem(GLOBAL_COUNT_KEY)) || 1;
+                }
                 
                 // Mark this device as visited
                 localStorage.setItem(VISITOR_KEY, 'true');
                 localStorage.setItem(VISITOR_ID_KEY, deviceFingerprint);
-                localStorage.setItem(GLOBAL_COUNT_KEY, visitorCount.toString());
             } else {
-                // Returning visitor - get count without incrementing
-                const response = await fetch(`https://api.countapi.xyz/get/${namespace}/${key}`);
-                const data = await response.json();
-                visitorCount = data.value || parseInt(localStorage.getItem(GLOBAL_COUNT_KEY)) || 1;
+                // Returning visitor - just show stored count
+                visitorCount = parseInt(localStorage.getItem(GLOBAL_COUNT_KEY)) || 1;
             }
             
             // Animate counter
             animateCounter(counterElement, visitorCount);
             
         } catch (error) {
-            console.error('Counter API failed:', error);
+            console.error('Counter failed:', error);
             // Fallback to robust local counter
             fallbackLocalCounter(counterElement, isReturningVisitor, deviceFingerprint);
         }
