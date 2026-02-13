@@ -28,6 +28,34 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Useful Links Modal
+    const usefulLinksBtn = document.getElementById('usefulLinksBtn');
+    const usefulLinksModal = document.getElementById('usefulLinksModal');
+    const usefulLinksModalOverlay = document.getElementById('usefulLinksModalOverlay');
+    const usefulLinksModalClose = document.getElementById('usefulLinksModalClose');
+
+    if (usefulLinksBtn && usefulLinksModal) {
+        usefulLinksBtn.addEventListener('click', function() {
+            usefulLinksModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        function closeUsefulLinksModal() {
+            usefulLinksModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        usefulLinksModalClose.addEventListener('click', closeUsefulLinksModal);
+        usefulLinksModalOverlay.addEventListener('click', closeUsefulLinksModal);
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && usefulLinksModal.classList.contains('active')) {
+                closeUsefulLinksModal();
+            }
+        });
+    }
     
     // Navigation Drawer functionality
     const hamburgerMenu = document.getElementById('hamburgerMenu');
