@@ -370,8 +370,44 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // App Announcement Popup — auto-appears on page load
+    const appAnnounce = document.getElementById('appAnnounce');
+    const appAnnounceClose = document.getElementById('appAnnounceClose');
+    const appAnnounceOverlay = document.getElementById('appAnnounceOverlay');
+
+    if (appAnnounce) {
+        function showAppAnnounce() {
+            appAnnounce.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideAppAnnounce() {
+            appAnnounce.classList.add('closing');
+            setTimeout(function() {
+                appAnnounce.classList.remove('active', 'closing');
+                document.body.style.overflow = '';
+            }, 320);
+        }
+
+        // Show once per browser session, shortly after the page opens
+        if (!sessionStorage.getItem('besqaaAppAnnounceSeen')) {
+            setTimeout(function() {
+                showAppAnnounce();
+                sessionStorage.setItem('besqaaAppAnnounceSeen', '1');
+            }, 1200);
+        }
+
+        appAnnounceClose.addEventListener('click', hideAppAnnounce);
+        appAnnounceOverlay.addEventListener('click', hideAppAnnounce);
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && appAnnounce.classList.contains('active')) {
+                hideAppAnnounce();
+            }
+        });
+    }
+
     // Log console message for developer
-    console.log('%c🪑 BESQAA Furniture Website Loaded Successfully! 🪑', 
+    console.log('%c🪑 BESQAA Furniture Website Loaded Successfully! 🪑',
         'color: #1a4d7c; font-size: 16px; font-weight: bold;');
     console.log('%cAdd your images to the /images folder', 
         'color: #ff9800; font-size: 14px;');

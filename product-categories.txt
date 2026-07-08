@@ -267,5 +267,5 @@ TOTAL PRODUCTS                    | 115
 
 ================================================================================
 Note: All products available with proper GST invoice for PSU claim purposes.
-GST: 20ODCPK1556C1ZY | Udyam: UDYAM-JH-04-0047160
+GST (Bihar): 10ABGFB6502P1ZK | GST (UP): 09ABGFB6502P1Z3 | Udyam: UDYAM-JH-04-0047160
 ================================================================================
