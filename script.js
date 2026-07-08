@@ -389,13 +389,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 320);
         }
 
-        // Show once per browser session, shortly after the page opens
-        if (!sessionStorage.getItem('besqaaAppAnnounceSeen')) {
-            setTimeout(function() {
-                showAppAnnounce();
-                sessionStorage.setItem('besqaaAppAnnounceSeen', '1');
-            }, 1200);
-        }
+        // Show on every page load, shortly after the page opens
+        setTimeout(showAppAnnounce, 1200);
 
         appAnnounceClose.addEventListener('click', hideAppAnnounce);
         appAnnounceOverlay.addEventListener('click', hideAppAnnounce);
