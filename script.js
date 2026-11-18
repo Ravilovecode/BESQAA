@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
 
     // Observe all cards and sections
-    document.querySelectorAll('.feature-card, .management-card, .category-card, .flow-item').forEach(el => {
+    document.querySelectorAll('.feature-card, .management-card, .category-card, .flow-item, .bq-card, .bq-benefit, .bq-cat').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -172,19 +172,159 @@ document.addEventListener('DOMContentLoaded', function() {
             if (this.textContent.includes('Check Eligible')) {
                 alert('Feature coming soon! Please contact support for eligibility details.');
             } else if (this.textContent.includes('Contact Support')) {
-                alert('Contact Support:\nEmail: forsupportpsu@besqaa.in\nPhone: +91-7368919823');
+                alert('Contact Support:\nEmail: besqaa4india@gmail.com\nPhone: +91-7368919823');
             }
         });
     });
 
-    // Category card interactions
-    const categoryCards = document.querySelectorAll('.category-card');
-    categoryCards.forEach(card => {
-        card.addEventListener('click', function() {
-            const categoryName = this.querySelector('h3').textContent;
-            alert(`Exploring ${categoryName} category. Full catalog coming soon!`);
+    // ============================================
+    // BUY-BACK DATE FORM (date required, amount optional)
+    // ============================================
+    const buybackForm = document.getElementById('buybackForm');
+
+    if (buybackForm) {
+        const dateInput = document.getElementById('buybackDate');
+        const amountInput = document.getElementById('buybackAmount');
+        const dateError = document.getElementById('buybackDateError');
+        const amountError = document.getElementById('buybackAmountError');
+        const result = document.getElementById('buybackResult');
+        const resultDate = document.getElementById('resultBuybackDate');
+        const resultReminder = document.getElementById('resultReminderDate');
+        const calendarBtn = document.getElementById('buybackCalendarBtn');
+        const whatsappBtn = document.getElementById('buybackWhatsappBtn');
+        const STORAGE_KEY = 'besqaa_buyback';
+        const REMINDER_DAYS = 15;
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const maxDate = new Date(today);
+        maxDate.setFullYear(maxDate.getFullYear() + 10);
+
+        const toISO = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        const parseISO = s => {
+            const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || '');
+            if (!m) return null;
+            const d = new Date(+m[1], +m[2] - 1, +m[3]);
+            return (d.getMonth() === +m[2] - 1 && d.getDate() === +m[3]) ? d : null;
+        };
+        const formatDate = d => d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+
+        dateInput.min = toISO(today);
+        dateInput.max = toISO(maxDate);
+
+        let saved = null;
+
+        function setError(input, el, msg) {
+            el.textContent = msg;
+            input.classList.toggle('bq-invalid', !!msg);
+        }
+
+        function validate() {
+            let ok = true;
+            const d = parseISO(dateInput.value);
+            if (!dateInput.value) {
+                setError(dateInput, dateError, 'Please enter your Buy-Back Date.'); ok = false;
+            } else if (!d) {
+                setError(dateInput, dateError, 'Please enter a valid date.'); ok = false;
+            } else if (d < today) {
+                setError(dateInput, dateError, 'Buy-Back Date cannot be in the past.'); ok = false;
+            } else if (d > maxDate) {
+                setError(dateInput, dateError, 'Please enter a date within the next 10 years.'); ok = false;
+            } else {
+                setError(dateInput, dateError, '');
+            }
+
+            const amt = amountInput.value.trim();
+            if (amt !== '' && (!/^\d+(\.\d{1,2})?$/.test(amt) || Number(amt) <= 0)) {
+                setError(amountInput, amountError, 'Enter a positive amount, or leave it blank.'); ok = false;
+            } else {
+                setError(amountInput, amountError, '');
+            }
+            return ok ? { date: d, amount: amt } : null;
+        }
+
+        function showResult(data) {
+            const reminder = new Date(data.date);
+            reminder.setDate(reminder.getDate() - REMINDER_DAYS);
+            const effectiveReminder = reminder < today ? today : reminder;
+            saved = { date: data.date, amount: data.amount, reminder: effectiveReminder };
+
+            resultDate.textContent = formatDate(data.date);
+            resultReminder.textContent = formatDate(effectiveReminder);
+
+            let msg = 'Hello BESQAA, please remind me before my Buy-Back Date: ' + formatDate(data.date) + '.';
+            if (data.amount) msg += ' Buy-Back Amount (optional): Rs ' + data.amount + '.';
+            whatsappBtn.href = 'https://wa.me/917368919823?text=' + encodeURIComponent(msg);
+            result.hidden = false;
+        }
+
+        buybackForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = validate();
+            if (!data) return;
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({ date: toISO(data.date), amount: data.amount }));
+            } catch (err) { /* storage unavailable - still show the result */ }
+            showResult(data);
         });
-    });
+
+        dateInput.addEventListener('change', function() { if (dateError.textContent) validate(); });
+
+        calendarBtn.addEventListener('click', function() {
+            if (!saved) return;
+            const fmt = d => toISO(d).replace(/-/g, '');
+            const next = d => { const n = new Date(d); n.setDate(n.getDate() + 1); return n; };
+            const stamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+            const ev = (uid, d, summary, desc) => [
+                'BEGIN:VEVENT',
+                'UID:' + uid + '@besqaa.in',
+                'DTSTAMP:' + stamp,
+                'DTSTART;VALUE=DATE:' + fmt(d),
+                'DTEND;VALUE=DATE:' + fmt(next(d)),
+                'SUMMARY:' + summary,
+                'DESCRIPTION:' + desc,
+                'END:VEVENT'
+            ].join('\r\n');
+            const ics = [
+                'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//BESQAA.in//Buy-Back Reminder//EN',
+                ev('reminder-' + fmt(saved.date), saved.reminder, 'BESQAA: Buy-Back Date coming up',
+                   'Your Buy-Back Date is ' + formatDate(saved.date) + '. Start comparing products at https://besqaa.in'),
+                ev('buyback-' + fmt(saved.date), saved.date, 'My Buy-Back Date',
+                   'First eligible purchase date. Visit https://besqaa.in'),
+                'END:VCALENDAR'
+            ].join('\r\n');
+            const blob = new Blob([ics], { type: 'text/calendar' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'besqaa-buyback-reminder.ics';
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+        });
+
+        // Restore a previously saved date on this device
+        try {
+            const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
+            const d = stored && parseISO(stored.date);
+            if (d && d >= today) {
+                dateInput.value = stored.date;
+                amountInput.value = stored.amount || '';
+                showResult({ date: d, amount: stored.amount || '' });
+            }
+        } catch (err) { /* ignore */ }
+    }
+
+    // Contact form - opens the user's email app with the message
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const f = contactForm.querySelectorAll('input, textarea');
+            const [name, email, phone, subject, message] = Array.from(f).map(el => el.value.trim());
+            const body = 'Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone + '\n\n' + message;
+            window.location.href = 'mailto:besqaa4india@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        });
+    }
 
     // Handle image loading errors with placeholder
     const images = document.querySelectorAll('img');
@@ -402,7 +542,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Log console message for developer
-    console.log('%c🪑 BESQAA Furniture Website Loaded Successfully! 🪑',
+    console.log('%c🛒 BESQAA.in Website Loaded Successfully! 🛒',
         'color: #1a4d7c; font-size: 16px; font-weight: bold;');
     console.log('%cAdd your images to the /images folder', 
         'color: #ff9800; font-size: 14px;');
